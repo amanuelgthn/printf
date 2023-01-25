@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include"main.h"
 /**
-*get_width- width for printing 
+*get_width- width for printing
 *@format: string to print arguments
 *i:list of arguments printed
 *@list:list
