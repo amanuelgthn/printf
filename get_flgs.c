@@ -4,7 +4,7 @@
 #include<stdlib.h>
 #include"main.h"
 /**
-*get_flags - calculating current active flags 
+*get_flags - calculating current active flags
 *@format: format
 *@i:parameter
 *Return: active flags
