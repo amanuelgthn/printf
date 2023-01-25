@@ -2,7 +2,8 @@
 #include<stdarg.h>
 #include<stdlib.h>
 #include<stdlib.h>
-#include"main.h"/**
+#include"main.h"
+/**
 *print_buffer- function to print the buffer if exists
 *@buffer: an array of chars of buffer
 *@buff_ind: number of char
