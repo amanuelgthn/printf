@@ -10,7 +10,7 @@
 *@ind:index
 *@buffer:buffer array
 *@flags:calculates flags that are active
-*width: width
+*@width: width
 *@precision : precision
  @size: Size specifier
  * Return: 1 or 2;
