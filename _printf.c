@@ -3,54 +3,67 @@
 #include<stdlib.h>
 #include<stdlib.h>
 #include"main.h"
+/**
+*_printf- customized printf function returning number of character printed
+*@format: format
+*Return: number of character printed
+**/
 int _printf(const char *format, ...)
 {
-	char *traverse;
-	unsigned int i;
-	char *s;
+	int i = 0, printed = 0, printed_chars = 0;
+	int flags, width, precision, size ,buff_ind = 0;
+	va_list list;
+	char buffer[BUFF_SIZE];
 	
-	va_list arg;
-	va_start(arg, format);
-	
-	for(traverse = format; *traverse != '\0'; traverse++)
+	if (format == NULL)
 	{
-		while (*traverse != '%')
+		return (-1);
+	}
+	va_list(list, format);
+	
+	for (; format && format[i] != '\0'; i++)
+	{
+		if (format[i] != '%')
 		{
-			putchar(*traverse);
-			traverse++;
+			buffer[buff_ind++] = format[i];
+			if (buff_ind == BUFF_SIZE)
+			{
+				print_buffer(buffer, &buff_ind);
+			}
+			printed_chars++;
 		}
-		traverse++;
-		switch(traverse)
+		else
 		{
-			case 'c' : i = va_arg(arg,int);
-				putchar(i);
-				break;
-			
-			case 'd' : i = va_arg(arg,int);
-				if(i < 0)
-				{
-					i = -i;
-					putchar('-');
-				}
-				puts(convert(i,10));
-				break;
+			print_buffer(buffer,&buff_ind);
+			flags = get_flags(format, &i);
+			width = get_width(format, &i, list);
+			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
+			++i;
+			printed = handle_print(format, &i, list, buffer, flags, width, precision, size);
+			if (printed == -1)
+			{
+				return (-1);
+			}
+			printed_chars += printed;
 		}
 	}
+	print_buffer(buffer, &buff_ind);
+	
+	va_end(list);
+	
+	return (printed_chars);
 }
-char *convert(unsigned int num, int base)
+/**
+*print_buffer- function to print the buffer if exists
+*@buffer: an array of chars of buffer
+*@buff_ind: number of char
+*/
+void print_buffer(char buffer[], int *buff_ind)
 {
-	static char representation[] = "0123456789ABCDEF";
-	static char buffer[50];
-	char *ptr;
-	
-	ptr = &buffer[49];
-	*ptr = '\0';
-	do
+	if (*buff_ind > 0)
 	{
-		*--ptr = representation[num%base];
-		num /= base;
+		write(1, &buffer[0], *buff_ind);
 	}
-	while(num != 0);
-	
-	return(ptr);
+	*buff_ind = 0;
 }
