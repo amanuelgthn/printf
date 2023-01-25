@@ -5,7 +5,7 @@
 #include"main.h"
 /**
 *handle_print- customized printf function to print argument
-*@fmt: formatted string to be printed 
+*@fmt: formatted string to be printed
 *@list: List number of arguments to be printed
 *@ind:index
 *@buffer:buffer array
@@ -15,7 +15,8 @@
  @size: Size specifier
  * Return: 1 or 2;
  **/
-int handle_print(const char *fmt, int *ind, va_list list, char buffer[], int flags, int width, int precision, int size)
+int handle_print(const char *fmt, int *ind, va_list list,
+		 char buffer[], int flags, int width, int precision, int size)
 {
 	int i, unknow_len = 0, printed_chars = -1;
 	fmt_t fmt_types[] = {
